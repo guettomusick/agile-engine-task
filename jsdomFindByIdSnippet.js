@@ -13,5 +13,5 @@ try {
   const button = dom.window.document.getElementById(targetElementId)
   logger.info(`Successfully found element. Element Text: ${button.textContent}`);
 } catch (err) {
-  logger.error('Error trying to find element by css selector', err);
+  logger.error('Error trying to find element by id', err);
 }
