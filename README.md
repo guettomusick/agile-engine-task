@@ -1,6 +1,17 @@
 # AgileEngine backend-XML nodejs snippets
 
-It is built on top of [jsdom](https://github.com/jsdom/jsdom).
+## Install
+```
+$ npm install
+```
 
-You can use jsdom for your solution or apply any other convenient library. 
+## Usage
+```
+$ npm start originFile compareFile [targetId]
+```
+
+## Run test cases
+```
+$ npm test
+```
     
