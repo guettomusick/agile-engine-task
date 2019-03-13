@@ -27,6 +27,7 @@ try {
   const compareDom = new JSDOM(compareFile);
 
   const byClass = compareDom.window.document.getElementsByClassName(expectedAttributes.class.split(' ')[0]);
+  let match = false;
   Array.prototype.slice.apply(byClass).forEach(bc => {
     const compareAttributes = Array.prototype.slice.apply(bc.attributes)
     .reduce((obj, attr) => {
@@ -47,9 +48,33 @@ try {
 
     const countSame = same.reduce((sum, actual) => actual ? sum + 1 : sum, 0);
     if(countSame >= 3) {
-      console.log(getTree(bc));
+      let log = 'tree: ';
+      const decisionMakingLog = [
+        'class elements',
+        'title',
+        'href',
+        'onclick',
+        'textContent'
+      ];
+
+      match = true;
+
+      log += getTree(bc);
+
+      log += `\nthe comparison gets an score of ${countSame} and with at least 3 similaritys we consider a match`;
+      same.forEach((s, index) => {
+        if(s) {
+          log += `\nCompared element has same ${decisionMakingLog[index]} as origin`;
+        }
+      });
+
+      console.log(log);
     }
   });
+
+  if (!match) {
+    console.log('no match in current document');
+  }
 
 } catch (err) {
   console.error('Error trying to find element by id', err);
